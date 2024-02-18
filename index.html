@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1 class="main-heading">QUIZ APP</h1>
+      </div>
+      <div id="scoreboard">
+        <p>Correct Answers: <span id="correctAnswers">0</span></p>
+        <p>Incorrect Answers: <span id="incorrectAnswers">0</span></p>
+        <div class="buttons">
+          <button id="resetScore">Reset Score</button>
+          <button id="refreshButton">Restart Quiz</button>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <form id="quizForm">
+        <div class="formThing">
+          <label for="difficulty">SELECT DIFFICULTY:</label>
+          <select id="difficulty" name="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <button type="submit">Start Quiz</button>
+      </form>
+      <div id="quizQuestion" style="display: none">
+        <div class="qna">
+          <h2 id="question"></h2>
+          <div id="answers"></div>
+        </div>
+        <div class="feedback-nextBtn">
+          <p id="feedback"></p>
+          <button id="nextQuestion">Next Question</button>
+        </div>
+      </div>
+      <h1 id="final-message" style="display: none; padding-top: 300px">
+        Quiz Complete!
+      </h1>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
