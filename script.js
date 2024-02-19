@@ -24,7 +24,7 @@ let userAnswered = false;
 
 function fetchQuestions(difficulty) {
   fetch(
-    `https://quizapi.io/api/v1/questions?apiKey=kaCYVunTkDUxMT86FXK1udzeR9xkuVXEkNfiOt1T&limit=2&difficulty=${difficulty}`
+    `https://quizapi.io/api/v1/questions?apiKey=kaCYVunTkDUxMT86FXK1udzeR9xkuVXEkNfiOt1T&limit=10&difficulty=${difficulty}`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -97,6 +97,11 @@ function nextQuestion() {
 function updateScoreboard() {
   correctAnswersElement.textContent = correctAnswers;
   incorrectAnswersElement.textContent = incorrectAnswers;
+  // Save scores to localStorage
+  localStorage.setItem(
+    "quizScores",
+    JSON.stringify({ correctAnswers, incorrectAnswers })
+  );
 }
 
 function resetScore() {
@@ -127,15 +132,18 @@ function resetQuiz() {
   finalMessage.style.display = "none";
 }
 
-function loadContainerFromLocalStorage() {
-  const containerHTML = localStorage.getItem("quizContainer");
-  if (containerHTML) {
-    document.querySelector(".container").innerHTML = containerHTML;
-
-    attachEventListeners();
+function loadScoreFromLocalStorage() {
+  // Load scores from localStorage
+  const scores = JSON.parse(localStorage.getItem("quizScores"));
+  if (scores) {
+    correctAnswers = scores.correctAnswers || 0;
+    incorrectAnswers = scores.incorrectAnswers || 0;
+    updateScoreboard();
   }
 }
 
 nextQuestionButton.addEventListener("click", nextQuestion);
 
 resetScoreButton.addEventListener("click", resetScore);
+
+window.addEventListener("load", loadScoreFromLocalStorage);
